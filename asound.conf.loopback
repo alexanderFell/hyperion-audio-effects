@@ -18,7 +18,7 @@ pcm.alsa_monitor {
 pcm.multi_dev {
   type multi
 
-  slaves.a.pcm "hw:0,0" # Match this to your sound card (aplay -l)
+  slaves.a.pcm "hw:1,0" # Match this to your sound card (aplay -l)
   slaves.a.channels 2
   slaves.b.pcm "hw:Loopback,0,0"
   slaves.b.channels 2

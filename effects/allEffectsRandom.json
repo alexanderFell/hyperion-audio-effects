@@ -1,0 +1,14 @@
+{
+    "name" : "Random Effects",
+    "script" : "allEffectsRandom.py",
+    "args" :
+    {
+	"minTime": 5,
+	"maxTime": 10,
+	"effects":[
+		{"effect": "strobe"},
+		{"effect": "vumeter"},
+		{"effect": "color_spectrum"}
+	]
+    }
+}

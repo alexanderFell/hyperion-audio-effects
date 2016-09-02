@@ -310,4 +310,5 @@ def run():
 
     effect.stop()
 
-run()
+if __name__ == '<run_path>':
+	run()

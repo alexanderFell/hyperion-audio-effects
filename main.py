@@ -274,7 +274,8 @@ def main():
         print "Exit by typing 'x' or 'exit'"
         cmd = ''
         while cmd != 'x' and cmd != 'exit':
-            cmd = raw_input()
+            cmd = raw_input().lower()
+
 
         hyperion.set_abort(True)
 

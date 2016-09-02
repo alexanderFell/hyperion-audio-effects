@@ -2,7 +2,7 @@
     "json": true,
     "proto": false,
     "effect": "color_spectrum",
-    "config": "/etc/hyperion.config.json",
+    "config": "/etc/hyperion/hyperion.config.json",
     "host": "localhost",
     "port": 19444,
     "audiosrc": "autoaudiosrc",

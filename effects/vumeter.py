@@ -102,8 +102,8 @@ class Effect(object):
 
     def receive_magnitudes(self, magnitudes):
 
-        if hyperion.abort():
-            self.stop()
+#        if hyperion.abort():
+#            self.stop()
 
         # Don't update when processing
         if self.processing:
@@ -152,13 +152,25 @@ class Effect(object):
 
         left = self.mag_to_idx(self._magnitudes[0])
         left_peak = self.mag_to_idx(self._magnitudes[1])
-        right = self.mag_to_idx(self._magnitudes[2])
-        right_peak = self.mag_to_idx(self._magnitudes[3])
+
+	#-- in case the source is mono
+	if len(self._magnitudes) <= 2:
+		right = left
+		right_peak = left_peak
+	else:
+		right = self.mag_to_idx(self._magnitudes[2])
+	        right_peak = self.mag_to_idx(self._magnitudes[3])
 
         for i in range(0, self.height):
 
+	    if i >= len(self.leds_left):	#-- in case the numbers of left and right LEDs differ
+		i = len(self.leds_left)-1
             left_i = self.leds_left[i]
+
+	    if i >= len(self.leds_right):	#-- in case the numbers of left and right LEDs differ
+		i = len(self.leds_right)-1
             right_i = self.leds_right[i]
+
             color_i = self.color_map[i]
 
             if i <= left or i == left_peak:
@@ -184,4 +196,5 @@ def run():
 
     effect.stop()
 
-run()
+if __name__ == '<run_path>':
+    run()

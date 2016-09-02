@@ -1,0 +1,12 @@
+{
+    "name" : "Color Strobe",
+    "script" : "strobe.py",
+    "args" :
+    {
+	"magnitude-min": 0.0,
+        "magnitude-max": 100.0,
+	"magnitude-threshold": 60.0,
+	"magnitude-octaves": 3,
+        "interval": 25
+    }
+}
