@@ -1,3 +1,4 @@
+#!/usr/bin/python
 """
 The main module which spawns a gui and a effect thread and opens a socket
 connection to the specified host. The effect algorithm is in the effect
@@ -23,6 +24,7 @@ import json
 import commentjson
 from sets import Set
 import operator
+import os
 
 # Change this according to your led configuration.
 # horizontal_led_num = 14
@@ -78,7 +80,8 @@ def run_effect(effect='effect'):
     create your own. Note that effects that call hyperion.setImage(img) are
     not supported by the local gui, use hypersim instead.
     """
-    runpy.run_path("effects/" + effect +'.py')
+    directory = os.path.dirname(os.path.realpath(__file__))
+    runpy.run_path(directory+"/effects/" + effect +'.py')
 
 def read_config(file_path):
 
@@ -225,7 +228,8 @@ def run_proto(host, port, interval):
 
 def main():
 
-    args = create_parser(read_config('./config.json')).parse_args()
+    directory = os.path.dirname(os.path.realpath(__file__))
+    args = create_parser(read_config(directory+'/config.json')).parse_args()
 
     leds, leds_top, leds_right, leds_bottom, leds_left = read_hyperion_config(args.config)
 
@@ -252,7 +256,7 @@ def main():
         )
         proto_thread.start()
 
-    with open('effects/' + args.effect + '.json') as effect_json:
+    with open(directory+'/effects/' + args.effect + '.json') as effect_json:
         effect = json.load(effect_json)
         effect_args = effect.get('args', {})
         effect_args['audiosrc'] = args.audiosrc
