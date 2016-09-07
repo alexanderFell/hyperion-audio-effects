@@ -17,16 +17,17 @@ Dev kit for creating audio visualizations for [hyperion](https://github.com/tvdz
 4. Install dependencies: `sudo pip install -r requirements.txt` (or use virtualenv if you like)
 5. Put `options snd-aloop index=-2` in end of `/etc/modprobe.d/alsa-base.conf` to prevent loopback device for getting first card index
 6. Enable loopback device `modprobe snd-aloop` (and type line `snd-aloop` to /etc/modules to make it permanent)
-7. Put the included `.asoundrc` to your home folder (backup old if exists) and change the soundcard index if needed (`"hw:<card>,<device>"`, check `aplay -l`) *
-8. Reboot or reload alsa `sudo alsa force-reload`
-9. Run `python main.py` with options:
+7. Included are 2 different asound configuration files: `asound.conf.loopback` and `asound.conf.mic`. Choose `asound.conf.mic`, if you have a microphone attached to your raspberry pi through e.g. an external USB sound card. The sound levels recorded by the microphone will be used to create the effects. If you do not have a microphone, use `asound.conf.loopback` to utilize the loopback device.
+8. Rename the chosen asound configuration file to  `.asound.conf` and copy it to your home folder (backup old if exists) and change the soundcard index if needed (`"hw:<card>,<device>"`, check `aplay -l`) *
+9. Reboot or reload alsa `sudo alsa force-reload`
+10. Run `python main.py` with options:
 	- `--config=<path>` path to hyperion config file (defaults to `./hyperion.config.json`)
 	- `--gui` for gui
 	- `--json` for network connection (`--host=<ip> --port=<port>`)
 	- `--help` to see all options
-10. Play some audio
-11. Levels should be drawn to gui, also sent to hyperion if json enabled
-12. Exit by closing the GUI or Ctrl+c
+11. Play some audio
+12. Levels should be drawn to gui, also sent to hyperion if json enabled
+13. Exit by closing the GUI or Ctrl+c
 
 ### Installation and running on OSMC (RPi 2)
 
@@ -37,14 +38,15 @@ Dev kit for creating audio visualizations for [hyperion](https://github.com/tvdz
 4. Install python dependencies `cd hyperion-audio-effects/ && sudo pip install -r requirements.txt`
 5. Put `options snd-aloop index=-2` in end of `/etc/modprobe.d/alsa-base.conf` (the file doesn't exist, just create it) to prevent loopback device for getting first card index
 6. Enable loopback device `sudo modprobe snd-aloop` (and type line `snd-aloop` to /etc/modules to make it permanent)
-7. Put the included `.asoundrc` to your home folder and change the soundcard index on line 21 if needed (check `aplay -l`, for me `"hw:0,0"` works, this depends on if you use usb-audio etc.)
-8. Reboot
-9. Now you must choose how to play some music. Kodi/OSMC doesn't support the loopback setup and Spotify can't be installed (maybe possible soon, check [spotifyd](https://github.com/Spotifyd/spotifyd)), so I went with mpd and mpc `sudo apt-get install mpd mpc`.
+7. Included are 2 different asound configuration files: `asound.conf.loopback` and `asound.conf.mic`. Choose `asound.conf.mic`, if you have a microphone attached to your Raspberry pi through e.g. an external USB sound card. The sound levels recorded by the microphone will be used to create the effects. If you do not have a microphone, use `asound.conf.loopback` to utilize the loopback device.
+8. Rename the chosen asound configuration file to  `.asound.conf` and copy it to your home folder (backup old if exists) and change the soundcard index if needed (`"hw:<card>,<device>"`, check `aplay -l`) *
+9. Reboot
+10. Now you must choose how to play some music. Kodi/OSMC doesn't support the loopback setup and Spotify can't be installed (maybe possible soon, check [spotifyd](https://github.com/Spotifyd/spotifyd)), so I went with mpd and mpc `sudo apt-get install mpd mpc`.
   - To get audio working with `mpd`, I needed to copy the alsa config to be global `sudo cp .asoundrc /etc/asound.conf`
   - After adding some music to `/var/lib/mpd/music` run `mpc ls | mpc add` to add all files to playlist, then `mpc play` (check `mpc help` for all commands).
   - You can select between HDMI and Headphone jack with `amixer cset numid=3 2` (HDMI) / `amixer cset numid=3 1` (Headphone)
   - I didn't find a way to adjust the audio level that the effects receives, I've done that using Spotify
-10. Finally you can try the audio-effects :)
+11. Finally you can try the audio-effects :)
   - `cd hyperion-audio-effects/`
   - `python main.py --effect vumeter`
   - The heavier effect works with setting `"band-width-exp": 4-5` but uses quite a lot of CPU. `python main.py --effect color_spectrum`
@@ -77,4 +79,4 @@ Dev kit for creating audio visualizations for [hyperion](https://github.com/tvdz
 
 \* Check this if you have pulseaudio: [#4](https://github.com/RanzQ/hyperion-audio-effects/issues/4#issuecomment-67764593)
 
-\** Windows istructions were removed since performance was poor due to the fact that Gstreamer is meant for Linux
+\** Windows instructions were removed since performance was poor due to the fact that Gstreamer is meant for Linux
