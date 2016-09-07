@@ -18,7 +18,7 @@ Dev kit for creating audio visualizations for [hyperion](https://github.com/tvdz
 5. Put `options snd-aloop index=-2` in end of `/etc/modprobe.d/alsa-base.conf` to prevent loopback device for getting first card index
 6. Enable loopback device `modprobe snd-aloop` (and type line `snd-aloop` to /etc/modules to make it permanent)
 7. Included are 2 different asound configuration files: `asound.conf.loopback` and `asound.conf.mic`. Choose `asound.conf.mic`, if you have a microphone attached to your raspberry pi through e.g. an external USB sound card. The sound levels recorded by the microphone will be used to create the effects. If you do not have a microphone, use `asound.conf.loopback` to utilize the loopback device.
-8. Rename the chosen asound configuration file to  `.asound.conf` and copy it to your home folder (backup old if exists) and change the soundcard index if needed (`"hw:<card>,<device>"`, check `aplay -l`) *
+8. Rename the chosen asound configuration file to  `.asoundrc` and copy it to your home folder (backup old if exists) and change the soundcard index if needed (`"hw:<card>,<device>"`, check `aplay -l`) *
 9. Reboot or reload alsa `sudo alsa force-reload`
 10. Run `python main.py` with options:
 	- `--config=<path>` path to hyperion config file (defaults to `./hyperion.config.json`)
@@ -39,7 +39,7 @@ Dev kit for creating audio visualizations for [hyperion](https://github.com/tvdz
 5. Put `options snd-aloop index=-2` in end of `/etc/modprobe.d/alsa-base.conf` (the file doesn't exist, just create it) to prevent loopback device for getting first card index
 6. Enable loopback device `sudo modprobe snd-aloop` (and type line `snd-aloop` to /etc/modules to make it permanent)
 7. Included are 2 different asound configuration files: `asound.conf.loopback` and `asound.conf.mic`. Choose `asound.conf.mic`, if you have a microphone attached to your Raspberry pi through e.g. an external USB sound card. The sound levels recorded by the microphone will be used to create the effects. If you do not have a microphone, use `asound.conf.loopback` to utilize the loopback device.
-8. Rename the chosen asound configuration file to  `.asound.conf` and copy it to your home folder (backup old if exists) and change the soundcard index if needed (`"hw:<card>,<device>"`, check `aplay -l`) *
+8. Rename the chosen asound configuration file to  `.asoundrc` and copy it to your home folder (backup old if exists) and change the soundcard index if needed (`"hw:<card>,<device>"`, check `aplay -l`) *
 9. Reboot
 10. Now you must choose how to play some music. Kodi/OSMC doesn't support the loopback setup and Spotify can't be installed (maybe possible soon, check [spotifyd](https://github.com/Spotifyd/spotifyd)), so I went with mpd and mpc `sudo apt-get install mpd mpc`.
   - To get audio working with `mpd`, I needed to copy the alsa config to be global `sudo cp .asoundrc /etc/asound.conf`
