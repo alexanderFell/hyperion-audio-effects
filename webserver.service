@@ -1,0 +1,26 @@
+# Adapt the paths of the variable 'ExecStart'
+# Copy to /etc/systemd/system
+#
+# Activate with 
+# sudo systemctl daemon-reload
+# sudo systemctl enable webserver.service
+# sudo systemctl start webserver
+
+[Unit]
+After = hyperion.service
+Description=HTTP Daemon to interface Hyperion
+
+[Service]
+Type=simple
+User=osmc
+Group=osmc
+UMask=007
+ExecStart=/home/osmc/hyperion-audio-effects/webserver.py
+#-- invoke instead, if you like to keep the log
+#ExecStart=/home/osmc/hyperion-audio-effects/webserver.py > /tmp/ledControl.log
+ExecReload=/bin/kill -INT $MAINPID
+Restart=on-failure
+TimeoutStopSec=10
+ 
+[Install]
+WantedBy=multi-user.target

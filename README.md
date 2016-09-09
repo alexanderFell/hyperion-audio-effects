@@ -80,3 +80,12 @@ Dev kit for creating audio visualizations for [hyperion](https://github.com/tvdz
 \* Check this if you have pulseaudio: [#4](https://github.com/RanzQ/hyperion-audio-effects/issues/4#issuecomment-67764593)
 
 \** Windows instructions were removed since performance was poor due to the fact that Gstreamer is meant for Linux
+
+
+### Webserver
+`webserver.py` contains a simple HTTP interface to control the effects of hyperion-audio-effects as well as the effects that are available with hyperion. It also allows to shutdown the Raspberry Pi.
+
+###### Installation
+1. Execute `./webserver.py` or `python webserver.py` as normal user and check, if the script is working. 
+2. If you would like to start the webserver everytime the Raspberry Pi boots, follow the instructions given in `webserver.service`
+

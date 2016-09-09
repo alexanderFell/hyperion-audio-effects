@@ -1,0 +1,37 @@
+body {
+	font-family: Arial, sans-serif;
+	padding: 4px;
+}
+
+h1 {
+	text-align: center;
+	font-weight: normal;
+}
+
+nav {
+	width: 100%;
+	border: none;
+}
+
+nav ul {
+	overflow: hidden;
+	margin: 0;
+}
+
+nav ul li {
+	list-style: none;
+	float: left;
+	padding-top: auto;
+	width: 16.6667%; /* fallback for non-calc() browsers */
+	width: calc(100% / 6);
+}
+
+nav ul li:last-child input {
+	color: red;
+}
+
+nav ul li input {
+	height: 4em;
+	width: 150px;
+}
+
